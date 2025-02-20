@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پرمیوم کردن تلگرام</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <style>
+        /* همان سبک‌ها از فایل اصلی */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #000000;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background: linear-gradient(135deg, #095a25, #0d2e18);
+            border-radius: 10px;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+        }
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            gap: 20px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border-radius: 5px;
+        }
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #1db954;
+        }
+        .content {
+            padding-top: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            animation: fadeIn 2s ease-in-out;
+            flex: 1;
+            background-color: #121212;
+        }
+        .form-container {
+            background-color: #000000;
+            padding: 15px;
+            width: 300px;
+            border: 2px solid #1db954;
+            border-radius: 10px;
+            box-shadow: 0px 10px 20px rgba(29, 185, 84, 0.2);
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .form-container select,
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1e1e1e;
+            color: white;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1db954;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .form-container button:hover {
+            background-color: #1ed760;
+        }
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #1db954, #1ed760);
+            width: 0%;
+            transition: width 0.5s ease-out;
+            z-index: 1100;
+        }
+        footer {
+            background: linear-gradient(135deg, #095a25, #0d2e18);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.7);
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            margin: 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .footer-link:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #1db954;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html#home">خانه</a></li>
+                <li><a href="index.html#services">خدمات</a></li>
+                <li><a href="login.html">ورود</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <div class="form-container">
+            <form id="premiumForm">
+                <label for="premiumType">نوع پرمیوم</label>
+                <select id="premiumType" onchange="showOptions()">
+                    <option value="gift">پرمیوم گیفتی</option>
+                    <option value="login">پرمیوم با لاگین</option>
+                </select>
+
+                <div id="loginOptions">
+                    <label for="loginDuration">مدت زمان پرمیوم با لاگین</label>
+                    <select id="loginDuration">
+                        <option value="1month">یک ماهه - ۴۲۸ تومان</option>
+                        <option value="12months">دوازده ماهه - ۲,۲۶۸,۰۰۰ تومان</option>
+                    </select>
+                </div>
+
+                <div id="giftOptions" style="display: none;">
+                    <label for="giftDuration">مدت زمان پرمیوم گیفتی</label>
+                    <select id="giftDuration">
+                        <option value="3months">سه ماهه - ۱,۲۶۸,۰۰۰ تومان</option>
+                        <option value="6months">شش ماهه - ۱,۵۶۸,۰۰۰ تومان</option>
+                        <option value="12months">دوازده ماهه - ۲,۶۶۸,۰۰۰ تومان</option>
+                    </select>
+                </div>
+
+                <label for="telegramId">آیدی تلگرام</label>
+                <input type="text" id="telegramId" required>
+
+                <button type="button" onclick="calculatePremiumPrice()">ثبت خرید</button>
+            </form>
+        </div>
+    </div>
+    <footer>
+        <p>ارتباط با ما از طریق:</p>
+        <a class="footer-link" href="https://t.me/informalel" target="_blank">تلگرام</a>
+    </footer>
+    <script>
+        window.addEventListener("scroll", () => {
+            const progressBar = document.getElementById("progressBar");
+            const maxScroll = document.body.scrollHeight - window.innerHeight;
+            const percentage = (window.scrollY / maxScroll) * 100;
+            progressBar.style.width = `${percentage}%`;
+        });
+
+        function showOptions() {
+            const premiumType = document.getElementById("premiumType").value;
+            document.getElementById("loginOptions").style.display = premiumType === "login" ? "block" : "none";
+            document.getElementById("giftOptions").style.display = premiumType === "gift" ? "block" : "none";
+        }
+
+        function calculatePremiumPrice() {
+            const premiumType = document.getElementById("premiumType").value;
+            const duration = premiumType === "login" ? document.getElementById("loginDuration").value : document.getElementById("giftDuration").value;
+            const telegramId = document.getElementById("telegramId").value;
+
+            let price;
+            if (premiumType === "login") {
+                price = duration === "1month" ? 428 : 2268000;
+            } else {
+                if (duration === "3months") {
+                    price = 1268000;
+                } else if (duration === "6months") {
+                    price = 1568000;
+                } else {
+                    price = 2668000;
+                }
+            }
+
+            window.location.href = `order-summary.html?price=${price}&telegramId=${telegramId}`;
+        }
+
+        document.addEventListener("DOMContentLoaded", showOptions);
+    </script>
+</body>
+</html>

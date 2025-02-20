@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خلاصه سفارش</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #000000;
+            font-family: Arial, sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background: linear-gradient(135deg, #095a25, #0d2e18);
+            border-radius: 10px;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
+        }
+        nav {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+        }
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            gap: 20px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border-radius: 5px;
+        }
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #1db954;
+        }
+        .content {
+            padding-top: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            animation: fadeIn 2s ease-in-out;
+            flex: 1;
+            background-color: #121212;
+        }
+        .summary-container {
+            background-color: #000000;
+            padding: 20px;
+            width: 300px;
+            border: 2px solid #1db954;
+            border-radius: 10px;
+            box-shadow: 0px 10px 20px rgba(29, 185, 84, 0.2);
+            text-align: center;
+        }
+        .summary-container p {
+            margin-bottom: 15px;
+        }
+        .card-number {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #1e1e1e;
+            color: white;
+            cursor: pointer;
+        }
+        .card-number:hover {
+            background-color: #1db954;
+        }
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, #1db954, #1ed760);
+            width: 0%;
+            transition: width 0.5s ease-out;
+            z-index: 1100;
+        }
+        footer {
+            background: linear-gradient(135deg, #095a25, #0d2e18);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px -4px 8px rgba(0, 0, 0, 0.7);
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            margin: 10px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .footer-link:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #1db954;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html#home">خانه</a></li>
+                <li><a href="index.html#services">خدمات</a></li>
+                <li><a href="login.html">ورود</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="content">
+        <div class="summary-container">
+            <h1>خلاصه سفارش</h1>
+            <p>آیدی کانال: <span id="channelId"></span></p>
+            <p>قیمت نهایی: <span id="totalPrice"></span> تومان</p>
+            <button class="card-number" onclick="copyToClipboard('6219861907518392')">کپی شماره کارت</button>
+        </div>
+    </div>
+    <footer>
+        <p>ارتباط با ما از طریق:</p>
+        <a class="footer-link" href="https://t.me/informalel" target="_blank">تلگرام</a>
+    </footer>
+    <script>
+        window.addEventListener("scroll", () => {
+            const progressBar = document.getElementById("progressBar");
+            const maxScroll = document.body.scrollHeight - window.innerHeight;
+            const percentage = (window.scrollY / maxScroll) * 100;
+            progressBar.style.width = `${percentage}%`;
+        });
+
+        function copyToClipboard(text) {
+            const tempInput = document.createElement("input");
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            alert("شماره کارت کپی شد!");
+        }
+
+        // دریافت پارامترهای URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const price = urlParams.get('price');
+        const channelId = urlParams.get('channelId');
+
+        // نمایش اطلاعات در صفحه
+        document.getElementById('totalPrice').textContent = price;
+        document.getElementById('channelId').textContent = channelId;
+    </script>
+</body>
+</html>
